@@ -27,6 +27,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Vector store and generated data chunks (can be re-generated)
-index.faiss
-chunks.jsonl
+# Vector store (not used by the app, can be re-generated)
+# index.faiss
+# chunks.jsonl
