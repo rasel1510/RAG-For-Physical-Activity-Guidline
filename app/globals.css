@@ -268,10 +268,10 @@ body {
 }
 
 .welcome-title {
-  font-size: 38px;
+  font-size: 26px;
   font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   margin-bottom: 14px;
   color: var(--text-primary);
 }
@@ -838,8 +838,8 @@ body {
     margin-bottom: 16px;
   }
   .welcome-title {
-    font-size: 26px;
-    letter-spacing: -0.02em;
+    font-size: 20px;
+    letter-spacing: -0.01em;
     margin-bottom: 12px;
   }
   .welcome-description {
@@ -944,7 +944,7 @@ body {
     padding: 20px 18px;
   }
   .welcome-title {
-    font-size: 30px;
+    font-size: 22px;
   }
   .welcome-description {
     font-size: 14px;
@@ -985,7 +985,7 @@ body {
     padding: 32px 24px;
   }
   .welcome-title {
-    font-size: 36px;
+    font-size: 24px;
   }
 
   .messages {
@@ -1024,7 +1024,7 @@ body {
     padding: 48px 32px;
   }
   .welcome-title {
-    font-size: 44px;
+    font-size: 28px;
   }
   .welcome-description {
     font-size: 16px;
@@ -1073,7 +1073,7 @@ body {
     align-items: flex-start;
   }
   .welcome-title {
-    font-size: 22px;
+    font-size: 18px;
     margin-bottom: 8px;
   }
   .welcome-badge {

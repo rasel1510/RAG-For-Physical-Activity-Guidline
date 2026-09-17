@@ -136,16 +136,10 @@ export default function Home() {
           /* ── Welcome Screen ────────────────────────────── */
           <div className="welcome">
             <div className="welcome-content">
-              <div className="welcome-badge">AI-Powered Knowledge Base</div>
               <h1 className="welcome-title">
                 Your Expert Guide to{' '}
                 <span className="gradient-text">Physical Activity</span>
               </h1>
-              <p className="welcome-description">
-                Ask any question about the Physical Activity Guidelines for
-                Americans. Get evidence-based answers with page citations from
-                the official guidelines.
-              </p>
               <SuggestedQuestions onSelect={handleSuggestionClick} />
             </div>
           </div>
