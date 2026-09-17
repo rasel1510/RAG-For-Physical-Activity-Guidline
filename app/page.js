@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import ChatMessage from '@/components/ChatMessage';
 import SuggestedQuestions from '@/components/SuggestedQuestions';
 
@@ -10,14 +10,30 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, loading]);
+  }, [messages, loading, scrollToBottom]);
+
+  // Fix iOS viewport height when keyboard is shown
+  useEffect(() => {
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    return () => {
+      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
+    };
+  }, []);
 
   const sendMessage = async (question) => {
     const text = (question || input).trim();
@@ -28,6 +44,11 @@ export default function Home() {
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setLoading(true);
+
+    // Blur input on mobile to dismiss keyboard after send
+    if (window.innerWidth < 768) {
+      inputRef.current?.blur();
+    }
 
     try {
       const res = await fetch('/api/ask', {
@@ -57,13 +78,32 @@ export default function Home() {
       setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setLoading(false);
-      inputRef.current?.focus();
+      // On desktop, refocus input; on mobile let user tap
+      if (window.innerWidth >= 768) {
+        inputRef.current?.focus();
+      }
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     sendMessage();
+  };
+
+  // Handle Enter key in textarea (send on Enter, newline on Shift+Enter)
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  // Auto-resize textarea
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+    const ta = e.target;
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
   };
 
   const handleSuggestionClick = (text) => {
@@ -111,7 +151,7 @@ export default function Home() {
           </div>
         ) : (
           /* ── Chat Interface ────────────────────────────── */
-          <div className="chat-container">
+          <div className="chat-container" ref={messagesContainerRef}>
             <div className="messages">
               {messages.map((msg, i) => (
                 <ChatMessage key={i} message={msg} />
@@ -142,28 +182,31 @@ export default function Home() {
       <div className="input-area">
         <form className="input-form" onSubmit={handleSubmit}>
           <div className="input-container">
-            <input
+            <textarea
               ref={inputRef}
-              type="text"
               className="input-field"
               placeholder="Ask about physical activity guidelines…"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
               disabled={loading}
-              autoFocus
+              rows={1}
             />
             <button
               type="submit"
               className="send-button"
               disabled={!input.trim() || loading}
               title="Send message"
+              aria-label="Send message"
             >
-              ➤
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
             </button>
           </div>
           <p className="input-hint">
-            Powered by RAG — Retrieves relevant guideline sections before
-            generating answers
+            Enter to send · Shift+Enter for new line
           </p>
         </form>
       </div>
