@@ -1,14 +1,14 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'ActiveGuide AI — Physical Activity Guidelines Assistant',
+  title: 'ActiveGuide — Physical Activity Guidelines Assistant',
   description:
-    'Ask questions about the Physical Activity Guidelines for Americans (2nd edition) using AI-powered retrieval augmented generation. Get evidence-based answers with page citations.',
+    'Evidence-based clinical guidelines and recommendations from the Physical Activity Guidelines for Americans (2nd Edition).',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
-    title: 'ActiveGuide AI',
+    statusBarStyle: 'default',
+    title: 'ActiveGuide',
   },
   formatDetection: {
     telephone: false,
@@ -19,7 +19,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#7c3aed',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -38,19 +38,19 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
 
         {/* PWA Meta Tags */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#7c3aed" />
+        <meta name="theme-color" content="#ffffff" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="ActiveGuide AI" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="ActiveGuide" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="application-name" content="ActiveGuide AI" />
-        <meta name="msapplication-TileColor" content="#7c3aed" />
+        <meta name="application-name" content="ActiveGuide" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-tap-highlight" content="no" />
 
         {/* Apple Touch Icons */}

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getEmbedding, getChatCompletion } from '@/lib/openrouter';
 import { search } from '@/lib/vectorStore';
 
-const SYSTEM_PROMPT = `You are **ActiveGuide AI**, an expert assistant on the Physical Activity Guidelines for Americans, 2nd edition (2018), published by the U.S. Department of Health and Human Services.
+const SYSTEM_PROMPT = `You are **ActiveGuide**, an expert clinical knowledge assistant on the Physical Activity Guidelines for Americans, 2nd edition.
 
 Your role is to answer questions accurately based ONLY on the provided context passages.
 
